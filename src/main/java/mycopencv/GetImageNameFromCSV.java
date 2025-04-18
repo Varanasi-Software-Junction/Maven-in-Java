@@ -13,21 +13,20 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
-public class TestOpenCV {
+public class GetImageNameFromCSV {
 
     public static Mat loadImage(String imagePath) {
         Imgcodecs imgcodecs = new Imgcodecs();
-        imagePath = String.format("images/%s", imagePath);
         Mat matrix = imgcodecs.imread(imagePath);
         return matrix;
     }
 
     public static void saveImage(Mat imageMatrix, String targetPath) {
-        targetPath = String.format("images/%s", targetPath);
         Imgcodecs.imwrite(targetPath, imageMatrix);
     }
 
     public static void faceDetect(Mat input) {
+        MatOfRect facesDetected = new MatOfRect();
 
         CascadeClassifier classifier = new CascadeClassifier("xml/facedetect.xml");
         MatOfRect faceDetections = new MatOfRect();
@@ -44,8 +43,7 @@ public class TestOpenCV {
                     3 // RGB colour
             );
         }
-        System.out.println("Saving");
-        saveImage(input, "out1983.png");
+        saveImage(input, "images/out.png");
 
     }
 
@@ -53,10 +51,10 @@ public class TestOpenCV {
 //        OpenCV.loadShared();
         nu.pattern.OpenCV.loadLocally();
         System.out.println("Hello Open CV");
-        Mat m1 = loadImage("1983.jpg");
+        Mat m1 = loadImage("images/faces.png");
         System.out.println(m1);
         faceDetect(m1);
-
+        saveImage(m1, "1983.jpg");
     }
 
 }
