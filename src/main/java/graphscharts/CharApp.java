@@ -2,7 +2,6 @@
  * This is a basic Java Swing application that uses the JFreeChart library
  * to draw a scatter plot with a line connecting the points.
  */
-
 package graphscharts;  // The package name for organizing this class file
 
 // Import necessary JFreeChart and Swing classes
@@ -32,7 +31,6 @@ public class CharApp extends JFrame {  // The class extends JFrame to create a w
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ----------------- Step 1: Create the Dataset -----------------
-
         // Create a collection that can hold one or more series of XY data
         XYSeriesCollection dataset = new XYSeriesCollection();
 
@@ -55,21 +53,19 @@ public class CharApp extends JFrame {  // The class extends JFrame to create a w
         dataset.addSeries(series1);
 
         // ----------------- Step 2: Create the Chart -----------------
-
         // Use ChartFactory to quickly create a scatter plot
         JFreeChart scatterPlot = ChartFactory.createScatterPlot(
-                "Scatter Plot with Line",   // Chart title
-                "X-Axis",                   // Label for X-axis
-                "Y-Axis",                   // Label for Y-axis
-                dataset,                    // The dataset created above
-                PlotOrientation.VERTICAL,   // Orientation: vertical (Y increases upward)
-                true,                       // Show legend
-                true,                       // Use tooltips
-                false                       // Don't use URLs
+                "Scatter Plot with Line", // Chart title
+                "X-Axis", // Label for X-axis
+                "Y-Axis", // Label for Y-axis
+                dataset, // The dataset created above
+                PlotOrientation.VERTICAL, // Orientation: vertical (Y increases upward)
+                true, // Show legend
+                true, // Use tooltips
+                false // Don't use URLs
         );
 
         // ----------------- Step 3: Customize the Plot -----------------
-
         // Extract the plot object from the chart for further customization
         XYPlot plot = scatterPlot.getXYPlot();
 
@@ -89,7 +85,6 @@ public class CharApp extends JFrame {  // The class extends JFrame to create a w
         plot.setBackgroundPaint(Color.white);
 
         // ----------------- Step 4: Embed Chart into Window -----------------
-
         // Wrap the chart inside a ChartPanel (a Swing-compatible component)
         ChartPanel chartPanel = new ChartPanel(scatterPlot);
 
