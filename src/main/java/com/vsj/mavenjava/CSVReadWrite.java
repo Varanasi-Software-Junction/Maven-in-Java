@@ -4,7 +4,6 @@
  */
 package com.vsj.mavenjava;
 
-
 import java.io.*;
 import java.util.*;
 

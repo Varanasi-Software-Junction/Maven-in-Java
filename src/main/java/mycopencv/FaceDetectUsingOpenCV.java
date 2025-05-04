@@ -4,6 +4,7 @@
  */
 package mycopencv;
 
+import java.util.Scanner;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -13,21 +14,36 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
-public class TestOpenCV {
+public class FaceDetectUsingOpenCV {
+private String inputfilename,outputfilename,fullinputpath,fulloutputpath;
 
-    public static Mat loadImage(String imagePath) {
+    public FaceDetectUsingOpenCV(String inputfilename, String outputfilename) {
+        this.inputfilename = inputfilename;
+        this.outputfilename = outputfilename;
+        this.fullinputpath=String.format("images/%s", inputfilename);
+        this.fulloutputpath=String.format("images/%s", outputfilename);
+        process();
+    }
+public void process()
+{
+    Mat m1 =  loadImage();
+        System.out.println(m1);
+        faceDetect(m1);
+    
+}
+    public  Mat loadImage() {
         Imgcodecs imgcodecs = new Imgcodecs();
-        imagePath = String.format("images/%s", imagePath);
-        Mat matrix = imgcodecs.imread(imagePath);
+        
+        Mat matrix = imgcodecs.imread(fullinputpath);
         return matrix;
     }
 
-    public static void saveImage(Mat imageMatrix, String targetPath) {
-        targetPath = String.format("images/%s", targetPath);
-        Imgcodecs.imwrite(targetPath, imageMatrix);
+    public  void saveImage(Mat imageMatrix) {
+        
+        Imgcodecs.imwrite(fulloutputpath, imageMatrix);
     }
 
-    public static void faceDetect(Mat input) {
+    public  void faceDetect(Mat input) {
 
         CascadeClassifier classifier = new CascadeClassifier("xml/facedetect.xml");
         MatOfRect faceDetections = new MatOfRect();
@@ -45,17 +61,20 @@ public class TestOpenCV {
             );
         }
         System.out.println("Saving");
-        saveImage(input, "out1983.png");
+        saveImage(input);
 
     }
 
     public static void main(String[] args) {
 //        OpenCV.loadShared();
+        Scanner scanner = new Scanner(System.in);
         nu.pattern.OpenCV.loadLocally();
-        System.out.println("Hello Open CV");
-        Mat m1 = loadImage("1983.jpg");
-        System.out.println(m1);
-        faceDetect(m1);
+        System.out.println("Enter the input file name");
+        String inputfilename = scanner.nextLine().toLowerCase().trim();
+        System.out.println("Enter the output  file name");
+        String outputfilename = scanner.nextLine().toLowerCase().trim();
+        FaceDetectUsingOpenCV v=new FaceDetectUsingOpenCV(inputfilename, outputfilename);
+        
 
     }
 
