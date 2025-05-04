@@ -15,35 +15,38 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 public class FaceDetectUsingOpenCV {
-private String inputfilename,outputfilename,fullinputpath,fulloutputpath;
+
+    private String inputfilename, outputfilename, fullinputpath, fulloutputpath;
 
     public FaceDetectUsingOpenCV(String inputfilename, String outputfilename) {
         this.inputfilename = inputfilename;
         this.outputfilename = outputfilename;
-        this.fullinputpath=String.format("images/%s", inputfilename);
-        this.fulloutputpath=String.format("images/%s", outputfilename);
+        this.fullinputpath = String.format("images/%s", inputfilename);
+        this.fulloutputpath = String.format("images/%s", outputfilename);
         process();
     }
-public void process()
-{
-    Mat m1 =  loadImage();
+
+    private void process() {
+        Mat m1 = loadImage();
         System.out.println(m1);
         faceDetect(m1);
-    
-}
-    public  Mat loadImage() {
+
+    }
+
+    public Mat loadImage() {
         Imgcodecs imgcodecs = new Imgcodecs();
-        
-        Mat matrix = imgcodecs.imread(fullinputpath);
+
+        Mat matrix = Imgcodecs.imread(fullinputpath);
         return matrix;
     }
 
-    public  void saveImage(Mat imageMatrix) {
-        
+    public void saveImage(Mat imageMatrix) {
+
         Imgcodecs.imwrite(fulloutputpath, imageMatrix);
+        System.out.printf("Input file %s, output file %s\n", fullinputpath, fulloutputpath);
     }
 
-    public  void faceDetect(Mat input) {
+    public void faceDetect(Mat input) {
 
         CascadeClassifier classifier = new CascadeClassifier("xml/facedetect.xml");
         MatOfRect faceDetections = new MatOfRect();
@@ -73,8 +76,7 @@ public void process()
         String inputfilename = scanner.nextLine().toLowerCase().trim();
         System.out.println("Enter the output  file name");
         String outputfilename = scanner.nextLine().toLowerCase().trim();
-        FaceDetectUsingOpenCV v=new FaceDetectUsingOpenCV(inputfilename, outputfilename);
-        
+        new FaceDetectUsingOpenCV(inputfilename, outputfilename);
 
     }
 
